@@ -4,7 +4,7 @@ import request from '../utils/request'
 // Search user
 // q, per_page, page
 // total_count, items[avatar_url, url, login, ]
-export function users (params) {
+export function getUsers (params) {
   return request({
     url: `/users`,
     method: 'get',
@@ -12,7 +12,7 @@ export function users (params) {
   })
 }
 
-export function detail (data) {
+export function getUser (data) {
   return request({
     url: `/users/${data.login}`,
     method: 'get',
