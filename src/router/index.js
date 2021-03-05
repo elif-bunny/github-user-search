@@ -1,32 +1,40 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// Routes
-// import githubRoutes from './github'
+// Pages
+import Profile from '../views/pages/profile'
+import Dashboard from '../views/pages/dashboard'
+import Page404 from '../views/pages/error'
 
-// Layouts
-import Layout from '../views/layout/index'
-import Page404 from '../views/layout/404'
+import Layout from '../views/layout'
 
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'hash',
+  mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'main',
+      path: '',
       component: Layout,
+      children: [
+        {
+          path: '',
+          component: Dashboard
+        },
+        {
+          path: 'user/:id',
+          component: Profile
+        },
+        {
+          path: '404',
+          component: Page404
+        },
+        {
+          path: '*',
+          redirect: '404'
+        },
+      ]
     },
-    {
-      path: '/404',
-      name: 'page404',
-      component: Page404
-    },
-    {
-      path: '*',
-      redirect: '/404'
-    }
   ]
 })
 
