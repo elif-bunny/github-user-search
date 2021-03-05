@@ -3,39 +3,19 @@ import { Message } from 'element-ui'
 
 // create an axios instance
 const service = axios.create({
-  // timeout: 5000, // request timeout,
   headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Accept': 'vnd.github.v3+json'
   }
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
-    config.baseURL = '/api/v1'
-    const token = document.head.querySelector('meta[name="csrf-token"]')
-
-    if (token) {
-      config.headers.common['X-CSRF-TOKEN'] = token.content
-    } else {
-      console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
-    }
-
-    // Retrieve the bearer token from localStorage
-    const bearer = localStorage.getItem('cce-token')
-
-    if (bearer) {
-      config.headers.common['Authorization'] = `Bearer ${bearer}`
-    }
+    config.baseURL = 'https://api.github.com/search'
 
     return config
   },
   error => {
-    // Do something with request error
-    console.log(error.response)
-    console.log('// Do something with request error')
-    console.log(error) // for debug
     Promise.reject(error)
   }
 )

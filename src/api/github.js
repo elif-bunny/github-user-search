@@ -1,11 +1,21 @@
 // Utility to make axios requests
 import request from '../utils/request'
 
-// Login user
-export function login (data) {
+// Search user
+// q, per_page, page
+// total_count, items[avatar_url, url, login, ]
+export function users (params) {
   return request({
-    url: '/login',
-    method: 'post',
-    data
+    url: `/users`,
+    method: 'get',
+    params
+  })
+}
+
+export function detail (data) {
+  return request({
+    url: `/users/${data.login}`,
+    method: 'get',
+    params: data.params
   })
 }
