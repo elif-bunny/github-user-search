@@ -1,6 +1,3 @@
 {
-  "order": {
-    "asc": "Ascending Order",
-    "desc": "Descending Order"
-  }
+  "page-not-found": "404 Not Found"
 }
