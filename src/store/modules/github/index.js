@@ -10,45 +10,52 @@ const github = {
   state: {
     isLoading: false,
     users: [],
+    filter: {
+      q: '',
+      page: 1,
+      per_page: 20,
+      total_count: 0,
+    },
     user: {},
   },
 
   actions: {
     setLoading ({ commit }, data = true) {
       // Commit loading state in mutation
-      commit('SET_LOADING', data)
-
-      return Promise.resolve()
+      return (async () => {
+        // Commit orders state in mutation
+        commit('SET_LOADING', data)
+      })();
     },
 
-    getUsers ({ commit }, data) {
-      return (async (resolve, reject) => {
-        try {
-          const res = await getUsers(data)
+    resetFilter ({ commit }) {
+      return (async () => {
+        // Commit orders state in mutation
+        commit('RESET_FILTER')
+      })();
+    },
 
-          // Commit orders state in mutation
-          commit('SET_USERS', res.data)
+    setFilterOption ({ commit }, data) {
+      return (async () => {
+        // Commit orders state in mutation
+        commit('SET_FILTER_OPTION', data)
+      })();
+    },
 
-          resolve()
-        } catch (error) {
-          reject(error)
-        }
+    getUsers ({ commit, getters }) {
+      return (async () => {
+        const res = await getUsers(getters.getFilterRequestBody)
+
+        // Commit orders state in mutation
+        commit('SET_USERS', res.data)
       })();
     },
 
     getUser ({ commit }, data) {
-      return (async (resolve, reject) => {
-        try {
-          // Retrieve order by ID
-          const res = await getUser(data)
+      return (async () => {
+        const res = await getUser(data)
 
-          // Commit order state in mutation
-          commit('SET_USER', res.data)
-
-          resolve()
-        } catch (error) {
-          reject(error)
-        }
+        commit('SET_USER', res.data)
       })();
     },
   },
@@ -59,12 +66,42 @@ const github = {
     },
 
     SET_USERS: (state, data) => {
-      state.users = data
+      state.users = data.items
+      state.filter.total_count = data.total_count
     },
 
     SET_USER: (state, data) => {
       state.user = data
+      console.log(data)
     },
+
+    SET_FILTER_OPTION: (state, data) => {
+      state.filter[data.option] = data.value
+    },
+
+    RESET_FILTER: (state) => {
+      state.filter = {
+        page: 1,
+        per_page: 20,
+        total_count: 0,
+        q: state.filter.q
+      }
+    },
+  },
+
+  getters: {
+    getFilterRequestBody: (state) => {
+      const { ...filter } = Object.keys(state.filter)
+      .filter(key => key != 'total_count')
+      .reduce((obj, key) => {
+        obj[key] = state.filter[key];
+        return obj;
+      }, {});
+
+      return {
+        ...filter,
+      }
+    }
   },
 }
 

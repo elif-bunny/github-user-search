@@ -1,4 +1,6 @@
 {
   "page-not-found": "404 Not Found",
-  "title": "Github User Search"
+  "title": "Github User Search",
+  "search": "Search",
+  "search-user": "Search Github Users"
 }

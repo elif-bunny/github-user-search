@@ -6,7 +6,7 @@ import request from '../utils/request'
 // total_count, items[avatar_url, url, login, ]
 export function getUsers (params) {
   return request({
-    url: `/users`,
+    url: `/search/users`,
     method: 'get',
     params
   })
@@ -14,8 +14,7 @@ export function getUsers (params) {
 
 export function getUser (data) {
   return request({
-    url: `/users/${data.login}`,
-    method: 'get',
-    params: data.params
+    url: `/users/${data}`,
+    method: 'get'
   })
 }

@@ -11,7 +11,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    config.baseURL = 'https://api.github.com/search'
+    config.baseURL = 'https://api.github.com'
 
     return config
   },
