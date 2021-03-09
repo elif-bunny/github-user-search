@@ -29,6 +29,11 @@
           </v-col>
           <v-col cols="12" md="3"> </v-col>
         </v-row>
+        <v-row v-if="filter.total_count>0">
+          <v-col>
+            <div justify="center" align="center">{{filter.total_count}} results (display first 1000 results only)</div>
+          </v-col>
+        </v-row>
       </v-form>
       <v-card style="background-color: transparent">
         <v-container>
