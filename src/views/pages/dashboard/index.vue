@@ -31,7 +31,9 @@
         </v-row>
         <v-row v-if="filter.total_count>0">
           <v-col>
-            <div justify="center" align="center">{{filter.total_count}} results (display first 1000 results only)</div>
+            <div justify="center" align="center">{{filter.total_count}} results (display first 1000 results only)
+              <a :href="apiURL" target="_blank" v-if="apiURL !== undefined"> API link (current page)</a>
+            </div>
           </v-col>
         </v-row>
       </v-form>
@@ -87,6 +89,7 @@ export default {
       loading: (state) => state.github.isLoading,
       filter: (state) => state.github.filter,
       users: (state) => state.github.users,
+      apiURL: (state) => state.github.lastUsersURL,
       pages: (state) => {
         return Math.ceil(
           Math.min(state.github.filter.total_count, 1000) /

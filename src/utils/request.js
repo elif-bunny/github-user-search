@@ -5,16 +5,13 @@ import { Message } from 'element-ui'
 const service = axios.create({
   headers: {
     'Accept': 'vnd.github.v3+json'
-  }
+  },
+  baseURL: 'https://api.github.com'
 })
 
 // request interceptor
 service.interceptors.request.use(
-  config => {
-    config.baseURL = 'https://api.github.com'
-
-    return config
-  },
+  config => config,
   error => {
     Promise.reject(error)
   }

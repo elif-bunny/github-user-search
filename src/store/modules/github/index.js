@@ -2,6 +2,7 @@
 import {
   getUsers,
   getUser,
+  getUsersLink,
 } from '../../../api/github'
 
 const github = {
@@ -16,6 +17,7 @@ const github = {
       per_page: 20,
       total_count: 0,
     },
+    lastUsersURL: undefined,
     user: {},
   },
 
@@ -45,9 +47,11 @@ const github = {
     getUsers ({ commit, getters }) {
       return (async () => {
         const res = await getUsers(getters.getFilterRequestBody)
+        const url = getUsersLink(getters.getFilterRequestBody)
 
         // Commit orders state in mutation
         commit('SET_USERS', res.data)
+        commit('SET_USERS_LINK', url)
       })();
     },
 
@@ -70,6 +74,10 @@ const github = {
       state.filter.total_count = data.total_count
     },
 
+    SET_USERS_LINK: (state, data) => {
+      state.lastUsersURL = data
+    },
+
     SET_USER: (state, data) => {
       state.user = data
       console.log(data)
@@ -86,6 +94,7 @@ const github = {
         total_count: 0,
         q: state.filter.q
       }
+      state.lastUsersURL = undefined
     },
   },
 

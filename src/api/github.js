@@ -18,3 +18,11 @@ export function getUser (data) {
     method: 'get'
   })
 }
+
+export function getUsersLink (params) {
+  return request.defaults.baseURL + request.getUri({
+    url: `/search/users`,
+    method: 'get',
+    params
+  })
+}
