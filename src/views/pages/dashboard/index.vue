@@ -37,7 +37,7 @@
           </v-col>
         </v-row>
       </v-form>
-      <v-card style="background-color: transparent">
+      <v-card style="background-color: transparent" v-if="users.length>0">
         <v-container>
           <v-item-group>
             <v-row>
