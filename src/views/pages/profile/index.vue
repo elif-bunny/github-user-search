@@ -26,13 +26,17 @@
         <v-img :src="user.avatar_url"> </v-img>
       </v-list-item-avatar>
     </v-list-item>
-    <a
-      :href="user.url"
-      class="d-flex mr-3 mb-5"
-      style="justify-content: flex-end"
-      target="_blank"
-      >API</a
-    >
+    <div class="d-flex">
+      <div style="flex: 1;"></div>
+      <a
+        class="mr-3 mb-5"
+        :href="user.url"
+        style="justify-content: flex-end"
+        target="_blank"
+      >
+        Github API Link
+      </a>
+    </div>
   </v-card>
 </template>
 <script>

@@ -32,7 +32,7 @@
         <v-row v-if="filter.total_count>0">
           <v-col>
             <div justify="center" align="center">{{filter.total_count}} results (display first 1000 results only)
-              <a :href="apiURL" target="_blank" v-if="apiURL !== undefined"> API link (current page)</a>
+              <a :href="apiURL" target="_blank" v-if="apiURL !== undefined"> Github API Link (current page)</a>
             </div>
           </v-col>
         </v-row>
