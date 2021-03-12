@@ -99,7 +99,7 @@ export default {
     }),
   },
 
-  data: () => {
+  data()  {
     return {
       rules: {
         required: (value) => !!value || "Required.",
